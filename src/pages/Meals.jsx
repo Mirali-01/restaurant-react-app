@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const Meals = (props) => {
   const apiKey = "1";
 
-  const url = `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${""}`;
+  // const url = `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${""}`;
 
   const [meal, setMeal] = useState({
     searchTerm: "",
@@ -23,6 +23,16 @@ const Meals = (props) => {
     //pass the search term to moviesearch prop, which is apps getMovie function
     props.mealSearch(meal.searchTerm);
   };
+
+  const getMeal = async (searchTerm) => {
+    const response = await fetch(url.concat());
+    const data = await response.json();
+    setMeal(data);
+  };
+
+  useEffect(() => {
+    getMeal("");
+  }, []);
 
   return (
     <div>

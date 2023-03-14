@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const Drinks = (props) => {
-  const apiKey = "1";
-
-  const url = `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${""}`;
-
   const [drink, setDrink] = useState({
     searchTerm: "",
   });
+
+  const apiKey = "1";
+
+  // const url = `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${searchTerm}`;
 
   const handleChange = (event) => {
     setDrink({ ...drink, [event.target.name]: event.target.value });
@@ -20,17 +20,16 @@ const Drinks = (props) => {
     props.drinkSearch(drink.searchTerm);
   };
 
-  const getMovie = async (searchTerm) => {
+  const getDrink = async (searchTerm) => {
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=${apiKey}&t=${searchTerm}&plot=full`
+      `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${searchTerm}`
     );
     const data = await response.json();
-    setMovie(data);
+    setDrink(data);
   };
 
-  //This will run on the first render but not on subsquent renders
   useEffect(() => {
-    getMovie("Spider-man");
+    getDrink("");
   }, []);
 
   return (
