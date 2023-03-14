@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const Meals = (props) => {
   const apiKey = "1";
 
-  // const url = `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${""}`;
+  const url = `www.thecocktaildb.com/api/json/v1/${apiKey}/search.php?s=${searchTerm}`;
 
   const [meal, setMeal] = useState({
     searchTerm: "",
