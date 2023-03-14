@@ -11,18 +11,27 @@ const Drinks = (props) => {
     searchTerm: "",
   });
 
-  //handleChange - updates Drink when we type into form
   const handleChange = (event) => {
-    //use the event object to detect key and value to update
     setDrink({ ...drink, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
-    //prevent page from refreshing on form submission
     event.preventDefault();
-    //pass the search term to moviesearch prop, which is apps getMovie function
     props.drinkSearch(drink.searchTerm);
   };
+
+  const getMovie = async (searchTerm) => {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=${apiKey}&t=${searchTerm}&plot=full`
+    );
+    const data = await response.json();
+    setMovie(data);
+  };
+
+  //This will run on the first render but not on subsquent renders
+  useEffect(() => {
+    getMovie("Spider-man");
+  }, []);
 
   return (
     <div>
